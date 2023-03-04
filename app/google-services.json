@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "175792823548",
+    "project_id": "newlotterycheck",
+    "storage_bucket": "newlotterycheck.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175792823548:android:dea23a129e7ca6b2774b79",
+        "android_client_info": {
+          "package_name": "com.jeepchief.newlotterycheck"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "175792823548-lv7adjoaghivi7na2onaeo59lp132din.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeepchief.newlotterycheck",
+            "certificate_hash": "4cc6caf073588516423c0501adad87e782ee19cf"
+          }
+        },
+        {
+          "client_id": "175792823548-mk0lo0q6fu5oipct8vs0stkq9g18u579.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGs7hz_UjoIM71lShnD90yf1Pe4gxpWrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "175792823548-mk0lo0q6fu5oipct8vs0stkq9g18u579.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">NewLotteryChevk</string>
+    <string name="app_name_v2">LotteryCheck</string>
+
+    <string name="msg_not_allowed_empty">빈 칸은 입력할 수 없어요.</string>
+    <string name="msg_account_create_success">회원가입 성공!</string>
+    <string name="msg_account_create_fail">회원가입 실패</string>
+    <string name="msg_permission_denied">권한을 거절하면 앱이 정상적으로 작동하지 않을 수 있습니다.</string>
+    <string name="msg_qr_prompt">격자선에 알맞게 촬영하세요.</string>
+
+    <string name="label_scan">스캔</string>
+    <string name="label_raffle">추첨</string>
+    <string name="label_record">기록</string>
+</resources>
