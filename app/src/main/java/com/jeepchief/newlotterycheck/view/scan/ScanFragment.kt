@@ -48,6 +48,8 @@ class ScanFragment : BaseFragment() {
         it.contents?.let { content ->
             Log.e("QR content is $content")
 //            processingData(content)
+
+
         } ?: run {
             Log.e("QR has no data.")
             Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show()
