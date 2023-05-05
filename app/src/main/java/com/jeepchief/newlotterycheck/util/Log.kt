@@ -4,7 +4,7 @@ import android.util.Log
 
 class Log {
     companion object {
-        const val TAG = "Custom Log"
+        const val TAG = "Lott"
 
         //debug
         fun d(message: String) {
