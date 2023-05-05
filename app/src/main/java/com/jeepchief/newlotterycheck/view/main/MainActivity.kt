@@ -5,16 +5,20 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import com.jeepchief.newlotterycheck.BaseActivity
 import com.jeepchief.newlotterycheck.R
 import com.jeepchief.newlotterycheck.databinding.ActivityMainBinding
 import com.jeepchief.newlotterycheck.view.main.adapter.ViewPagerAdapter
+import com.jeepchief.newlotterycheck.viewmodel.LotteryViewModel
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val viewModel = viewModels<LotteryViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -31,6 +35,7 @@ class MainActivity : BaseActivity() {
             }
 
             viewPager.adapter = ViewPagerAdapter(this@MainActivity)
+//            viewPager.setPageTransformer(DepthPageTransformer())
         }
     }
 
@@ -66,7 +71,8 @@ class MainActivity : BaseActivity() {
     }
 
     //Fragment 전환 애니메이션
-    class DepthPageTransformer : ViewPager.PageTransformer {
+    // todo : position 이슈로 해결 전까지 보류
+    class DepthPageTransformer : ViewPager2.PageTransformer {
         override fun transformPage(view: View, position: Float) {
             val pageWidth = view.width
             if (position < -1) { // [-Infinity,-1)
