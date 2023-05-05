@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.jeepchief.newlotterycheck.R
-import com.jeepchief.newlotterycheck.databinding.SliderBinding
+import com.jeepchief.newlotterycheck.databinding.SliderRaffleBinding
+import com.jeepchief.newlotterycheck.util.Log
 
 class RaffleFragment : Fragment() {
-    private var _binding: SliderBinding? = null
+    private var _binding: SliderRaffleBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -17,7 +17,7 @@ class RaffleFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = SliderBinding.inflate(inflater, container, false)
+        _binding = SliderRaffleBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -25,13 +25,9 @@ class RaffleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            slideImage.apply {
-                setImageResource(R.drawable.noun_lottery_1501474)
-                setOnClickListener {
-
-                }
+            flRaffleSlider.setOnClickListener {
+                Log.e("slider click!!")
             }
-            slideLabel.text = getString(R.string.label_raffle)
         }
     }
 

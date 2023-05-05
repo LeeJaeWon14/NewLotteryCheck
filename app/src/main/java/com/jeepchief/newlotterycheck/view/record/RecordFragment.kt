@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.jeepchief.newlotterycheck.R
-import com.jeepchief.newlotterycheck.databinding.SliderBinding
+import com.jeepchief.newlotterycheck.databinding.SliderRecordBinding
+import com.jeepchief.newlotterycheck.util.Log
 
 class RecordFragment : Fragment() {
-    private var _binding: SliderBinding? = null
+    private var _binding: SliderRecordBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -17,7 +17,7 @@ class RecordFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = SliderBinding.inflate(inflater, container, false)
+        _binding = SliderRecordBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -25,13 +25,9 @@ class RecordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            slideImage.apply {
-                setImageResource(R.drawable.noun_records_1992836)
-                setOnClickListener {
-
-                }
+            flRecordSlider.setOnClickListener {
+                Log.e("slider click!!")
             }
-            slideLabel.text = getString(R.string.label_record)
         }
     }
 
