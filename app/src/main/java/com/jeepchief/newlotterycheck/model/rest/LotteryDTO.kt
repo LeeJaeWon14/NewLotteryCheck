@@ -6,26 +6,49 @@ import com.google.gson.annotations.SerializedName
 data class LotteryDTO(
     @Expose
     @SerializedName("returnValue")
-    val returnvalue: String,
+    val returnValue: String,
+
     @Expose
     @SerializedName("drwNoDate")
-    val drwnodate: String,
+    val drwNoDate: String,
+
     @Expose
-    @SerializedName("drwtNo6")
-    val drwtno6: Int,
-    @Expose
-    @SerializedName("drwtNo4")
-    val drwtno4: Int,
+    @SerializedName("drwNo")
+    val drwNo: Int,
+
     @Expose
     @SerializedName("firstPrzwnerCo")
     val firstprzwnerco: Int,
-    @Expose
-    @SerializedName("drwtNo5")
-    val drwtno5: Int,
+
     @Expose
     @SerializedName("bnusNo")
-    val bnusno: Int,
+    val bnusNo: Int,
+
     @Expose
     @SerializedName("firstWinamnt")
-    val firstWinamnt: Int
+    val firstWinAmnt: Int,
+
+    @Expose
+    @SerializedName("drwtNo1")
+    val drwtNo1: Int,
+
+    @Expose
+    @SerializedName("drwtNo2")
+    val drwtNo2: Int,
+
+    @Expose
+    @SerializedName("drwtNo3")
+    val drwtNo3: Int,
+
+    @Expose
+    @SerializedName("drwtNo4")
+    val drwtNo4: Int,
+
+    @Expose
+    @SerializedName("drwtNo5")
+    val drwtNo5: Int,
+
+    @Expose
+    @SerializedName("drwtNo6")
+    val drwtNo6: Int
 )
