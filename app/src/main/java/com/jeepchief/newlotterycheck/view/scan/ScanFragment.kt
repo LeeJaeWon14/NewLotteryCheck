@@ -110,6 +110,7 @@ class ScanFragment : BaseFragment() {
 
                 btnDialogClose.setOnClickListener { dlg.dismiss() }
             }
+            //Add parameters in LotteryDTO.kt  LeeJaeWon A minute ago
             dlg.show()
         }
     }
