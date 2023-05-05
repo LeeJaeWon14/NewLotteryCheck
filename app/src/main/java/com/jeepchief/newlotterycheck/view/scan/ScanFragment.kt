@@ -101,7 +101,7 @@ class ScanFragment : BaseFragment() {
                     layoutManager = manager
                     adapter = ScanResultAdapter(
                         lottery.drwtNo1, lottery.drwtNo2, lottery.drwtNo3,
-                        lottery.drwtNo4, lottery.drwtNo5, lottery.drwtNo6
+                        lottery.drwtNo4, lottery.drwtNo5, lottery.drwtNo6, lottery.bnusNo
                     )
 //                    addItemDecoration(
 //                        DividerItemDecoration(mContext, manager.orientation)
