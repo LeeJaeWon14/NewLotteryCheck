@@ -1,4 +1,4 @@
-package com.jeepchief.newlotterycheck.model
+package com.jeepchief.newlotterycheck.model.database
 
 import androidx.room.Dao
 import androidx.room.Delete
