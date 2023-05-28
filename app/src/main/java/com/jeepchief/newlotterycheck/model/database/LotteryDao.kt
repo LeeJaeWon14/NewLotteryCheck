@@ -8,11 +8,11 @@ import androidx.room.Query
 @Dao
 interface LotteryDao {
     @Query("SELECT * FROM LotteryEntity")
-    suspend fun selectLottery() : List<LotteryEntity>
+    fun selectLottery() : List<LotteryEntity>
 
     @Insert
-    suspend fun insertLottery(entity: LotteryEntity)
+    fun insertLottery(entity: LotteryEntity)
 
     @Delete
-    suspend fun deleteLottery(entity: LotteryEntity) : Int
+    fun deleteLottery(entity: LotteryEntity) : Int
 }

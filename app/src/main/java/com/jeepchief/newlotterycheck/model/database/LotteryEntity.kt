@@ -25,10 +25,10 @@ data class LotteryEntity(
     val firstprzwnerco: Int,
 
     @ColumnInfo(name = "bnusNo")
-    val bnusNo: Int,
+    val bnusNo: Int = 0,
 
     @ColumnInfo(name = "firstWinamnt")
-    val firstWinAmnt: Int,
+    val firstWinAmnt: Long,
 
     @ColumnInfo(name = "drwtNo1")
     val drwtNo1: Int,

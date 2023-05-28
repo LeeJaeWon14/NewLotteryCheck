@@ -26,7 +26,7 @@ data class LotteryDTO(
 
     @Expose
     @SerializedName("firstWinamnt")
-    val firstWinAmnt: Int,
+    val firstWinAmnt: Long,
 
     @Expose
     @SerializedName("drwtNo1")

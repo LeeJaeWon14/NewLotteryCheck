@@ -7,22 +7,28 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jeepchief.newlotterycheck.R
 import com.jeepchief.newlotterycheck.databinding.LayoutScanResultDialogBinding
 import com.jeepchief.newlotterycheck.databinding.SliderScanBinding
+import com.jeepchief.newlotterycheck.util.CrawlingManager
 import com.jeepchief.newlotterycheck.util.Log
 import com.jeepchief.newlotterycheck.view.BaseFragment
-import com.jeepchief.newlotterycheck.view.scan.adapter.ScanResultAdapter
+import com.jeepchief.newlotterycheck.view.scan.adapter.LottNumberAdapter
+import com.jeepchief.newlotterycheck.view.scan.adapter.UserLottNumAdapter
 import com.jeepchief.newlotterycheck.viewmodel.LotteryViewModel
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ScanFragment : BaseFragment() {
     private var _binding: SliderScanBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LotteryViewModel by activityViewModels()
+    private var scanUrlParam = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +67,7 @@ class ScanFragment : BaseFragment() {
 
             // Lotto URL pattern >> baseURL?v={해당회차}q091028353644...
             val targetDrw = content.split("v=")[1].substring(0, 4)
+            scanUrlParam = content.split("v")[1]
             viewModel.getLottoNumber(targetDrw)
         } ?: run {
             Log.e("QR has no data.")
@@ -80,38 +87,56 @@ class ScanFragment : BaseFragment() {
     private fun observeViewModel() {
         viewModel.lottoNumbers.observe(requireActivity()) { lottery ->
             Log.e("lottery response >> $lottery")
+            CoroutineScope(Dispatchers.Main).launch {
+                var userLottList: List<List<Int>>? = null
+                withContext(Dispatchers.IO) {
+                    userLottList = CrawlingManager.scanNumbers(scanUrlParam)
+                }
 
-            val dlgView = LayoutScanResultDialogBinding.inflate(layoutInflater)
-            val dlg = AlertDialog.Builder(mContext).create().apply {
-                setCancelable(false)
-                setView(dlgView.root)
-                window?.setBackgroundDrawableResource(R.drawable.dialog_border)
-            }
+                val dlgView = LayoutScanResultDialogBinding.inflate(layoutInflater)
+                val dlg = AlertDialog.Builder(mContext).create().apply {
+                    setCancelable(false)
+                    setView(dlgView.root)
+                    window?.setBackgroundDrawableResource(R.drawable.dialog_border)
+                }
 
-            dlgView.apply {
-                tvDrwCount.text = String.format(
-                    getString(R.string.label_drw_count),
-                    lottery.drwNo.toString()
-                )
-
-                rvRefLottNumbers.apply {
-                    val manager = LinearLayoutManager(mContext).apply {
-                        orientation = LinearLayoutManager.HORIZONTAL
-                    }
-                    layoutManager = manager
-                    adapter = ScanResultAdapter(
-                        lottery.drwtNo1, lottery.drwtNo2, lottery.drwtNo3,
-                        lottery.drwtNo4, lottery.drwtNo5, lottery.drwtNo6, lottery.bnusNo
+                dlgView.apply {
+                    tvDrwCount.text = String.format(
+                        getString(R.string.label_drw_count),
+                        lottery.drwNo.toString()
                     )
+
+                    rvRefLottNumbers.apply {
+                        val manager = LinearLayoutManager(mContext).apply {
+                            orientation = LinearLayoutManager.HORIZONTAL
+                        }
+                        layoutManager = manager
+                        adapter = LottNumberAdapter(
+                            lottery.drwtNo1, lottery.drwtNo2, lottery.drwtNo3,
+                            lottery.drwtNo4, lottery.drwtNo5, lottery.drwtNo6, lottery.bnusNo,
+                            refNumbers = viewModel.refDrwNumbers
+                        )
 //                    addItemDecoration(
 //                        DividerItemDecoration(mContext, manager.orientation)
 //                    )
-                }
+                    }
 
-                btnDialogClose.setOnClickListener { dlg.dismiss() }
+                    rvUserLottNumbers.apply {
+                        layoutManager = LinearLayoutManager(mContext)
+                        userLottList?.let {
+                            adapter = UserLottNumAdapter(it, viewModel.refDrwNumbers)
+                        } ?: run {
+                            Toast.makeText(mContext, "Error!", Toast.LENGTH_SHORT).show()
+                            return@launch
+                        }
+
+                    }
+
+                    btnDialogClose.setOnClickListener { dlg.dismiss() }
+                }
+                //Add parameters in LotteryDTO.kt  LeeJaeWon A minute ago
+                dlg.show()
             }
-            //Add parameters in LotteryDTO.kt  LeeJaeWon A minute ago
-            dlg.show()
         }
     }
     override fun onDestroy() {

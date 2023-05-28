@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_ref_drw_number"
+    style="@style/LottNumberTheme"
+    android:layout_marginBottom="10dp"
+    tools:text="7"/>
