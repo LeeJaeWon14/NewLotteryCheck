@@ -10,7 +10,7 @@
     <string name="msg_not_allowed_qr">로또 용지의 QR코드를 스캔해주세요</string>
 
     <string name="label_scan">스캔</string>
-    <string name="label_raffle">추첨</string>
+    <string name="label_raffle">모의추첨</string>
     <string name="label_record">기록</string>
 
     <string name="label_close">닫기</string>
