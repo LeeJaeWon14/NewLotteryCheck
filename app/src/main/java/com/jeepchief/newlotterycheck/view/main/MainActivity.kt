@@ -1,12 +1,17 @@
 package com.jeepchief.newlotterycheck.view.main
 
 import android.Manifest
+import android.content.pm.ActivityInfo
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
@@ -20,12 +25,14 @@ import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.*
 
+
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel = viewModels<LotteryViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.e("onCreate()")
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         checkPermission()
@@ -36,8 +43,25 @@ class MainActivity : BaseActivity() {
         Log.e("initUi()")
         binding.apply {
             supportActionBar?.apply {
-                title = LocalDate.now().toString()
-                subtitle = "다음 추첨까지 ${getNextRaffleDay()}"
+                val titleString: Spannable = SpannableString(LocalDate.now().toString())
+                titleString.setSpan(
+                    ForegroundColorSpan(Color.BLACK),
+                    0,
+                    titleString.length,
+                    Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                )
+
+                val subTitleString = SpannableString("다음 추첨까지 ${getNextRaffleDay()}")
+                subTitleString.setSpan(
+                    ForegroundColorSpan(Color.BLACK),
+                    0,
+                    subTitleString.length,
+                    Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                )
+
+                title = titleString
+                subtitle = subTitleString
+                setBackgroundDrawable(ColorDrawable(Color.WHITE))
             }
 
             viewPager.adapter = ViewPagerAdapter(this@MainActivity)
