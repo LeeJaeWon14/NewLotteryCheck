@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.jeepchief.newlotterycheck.databinding.SliderRaffleBinding
 import com.jeepchief.newlotterycheck.util.Log
+import com.jeepchief.newlotterycheck.view.BaseFragment
+import com.jeepchief.newlotterycheck.view.main.MainActivity
 
-class RaffleFragment : Fragment() {
+class RaffleFragment : BaseFragment() {
     private var _binding: SliderRaffleBinding? = null
     private val binding get() = _binding!!
 
@@ -28,6 +30,7 @@ class RaffleFragment : Fragment() {
             flRaffleSlider.setOnClickListener {
                 Log.e("slider click!!")
 
+                (mContext as MainActivity).hideActionBar()
             }
         }
     }

@@ -16,6 +16,9 @@ import com.jeepchief.newlotterycheck.databinding.ActivityMainBinding
 import com.jeepchief.newlotterycheck.util.Log
 import com.jeepchief.newlotterycheck.view.main.adapter.ViewPagerAdapter
 import com.jeepchief.newlotterycheck.viewmodel.LotteryViewModel
+import java.time.LocalDate
+import java.time.format.TextStyle
+import java.util.*
 
 class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -32,9 +35,9 @@ class MainActivity : BaseActivity() {
     private fun initUi() {
         Log.e("initUi()")
         binding.apply {
-            setSupportActionBar(toolbar)
             supportActionBar?.apply {
-                setDisplayHomeAsUpEnabled(true)
+                title = LocalDate.now().toString()
+                subtitle = "다음 추첨까지 ${getNextRaffleDay()}"
             }
 
             viewPager.adapter = ViewPagerAdapter(this@MainActivity)
@@ -44,9 +47,7 @@ class MainActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            android.R.id.home -> {
 
-            }
         }
 
         return false
@@ -73,6 +74,24 @@ class MainActivity : BaseActivity() {
             )
         }.check()
     }
+
+    private fun getNextRaffleDay() : String {
+        val now = LocalDate.now()
+        val dayOfWeek = now.dayOfWeek
+        return when(dayOfWeek.getDisplayName(TextStyle.NARROW, Locale.KOREA)) {
+            "월" -> "5일 뒤"
+            "화" -> "4일 뒤"
+            "수" -> "3일 뒤"
+            "목" -> "2일 뒤"
+            "금" -> "내일"
+            "토" -> "오늘"
+            "일" -> "6일 뒤"
+            else -> ""
+        }
+    }
+
+    fun hideActionBar() = actionBar?.hide()
+    fun showActionBar() = actionBar?.show()
 
     //Fragment 전환 애니메이션
     // todo : position 이슈로 해결 전까지 보류

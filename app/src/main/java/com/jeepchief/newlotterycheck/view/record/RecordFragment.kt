@@ -30,10 +30,9 @@ class RecordFragment : Fragment() {
             flRecordSlider.setOnClickListener {
                 Log.e("slider click!!")
 
-                parentFragmentManager.beginTransaction()
+                childFragmentManager.beginTransaction()
                     .setCustomAnimations(0, 0)
                     .replace(R.id.fl_container, RecordMainFragment())
-                    .addToBackStack(null)
                     .commitAllowingStateLoss()
             }
         }

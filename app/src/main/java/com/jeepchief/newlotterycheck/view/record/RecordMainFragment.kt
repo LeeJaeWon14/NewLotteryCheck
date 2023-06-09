@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.jeepchief.newlotterycheck.R
 import com.jeepchief.newlotterycheck.databinding.FragmentRecordMainBinding
 import com.jeepchief.newlotterycheck.view.BaseFragment
+import com.jeepchief.newlotterycheck.view.main.MainActivity
 
 class RecordMainFragment : BaseFragment() {
     private var _binding: FragmentRecordMainBinding? = null
@@ -24,17 +25,17 @@ class RecordMainFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().actionBar?.hide()
+        (mContext as MainActivity).hideActionBar()
         binding.apply {
             bnvRecord.apply {
                 selectedItemId = R.id.menu_nav_statistic
                 setOnItemSelectedListener { item ->
                     var nowFragment: Fragment? = null
-                    parentFragmentManager.fragments.forEach { fragment ->
+                    childFragmentManager.fragments.forEach { fragment ->
                         if(fragment.isVisible) nowFragment = fragment
                     }
 
-                    val transaction = parentFragmentManager.beginTransaction()
+                    val transaction = childFragmentManager.beginTransaction()
                     when(item.itemId) {
                         R.id.menu_nav_statistic -> {
                             if(nowFragment is StatisticsFragment) return@setOnItemSelectedListener true
@@ -60,6 +61,7 @@ class RecordMainFragment : BaseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        (mContext as MainActivity).showActionBar()
         _binding = null
     }
 }
