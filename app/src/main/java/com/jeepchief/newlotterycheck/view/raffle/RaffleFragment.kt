@@ -27,6 +27,7 @@ class RaffleFragment : Fragment() {
         binding.apply {
             flRaffleSlider.setOnClickListener {
                 Log.e("slider click!!")
+
             }
         }
     }

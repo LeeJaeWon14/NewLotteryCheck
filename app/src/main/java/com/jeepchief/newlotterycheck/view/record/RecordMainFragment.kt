@@ -24,24 +24,36 @@ class RecordMainFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().actionBar?.hide()
         binding.apply {
-            bnvRecord.setOnItemSelectedListener { item ->
-                var nowFragment: Fragment? = null
-                parentFragmentManager.fragments.forEach { fragment ->
-                    if(fragment.isVisible) nowFragment = fragment
-                }
-
-                val transaction = parentFragmentManager.beginTransaction()
-                when(item.itemId) {
-                    R.id.menu_nav_statistic -> {
-
+            bnvRecord.apply {
+                selectedItemId = R.id.menu_nav_statistic
+                setOnItemSelectedListener { item ->
+                    var nowFragment: Fragment? = null
+                    parentFragmentManager.fragments.forEach { fragment ->
+                        if(fragment.isVisible) nowFragment = fragment
                     }
-                    R.id.menu_nav_record -> {
 
+                    val transaction = parentFragmentManager.beginTransaction()
+                    when(item.itemId) {
+                        R.id.menu_nav_statistic -> {
+                            if(nowFragment is StatisticsFragment) return@setOnItemSelectedListener true
+                            transaction
+//                            .setCustomAnimations(0, 0)
+                                .replace(R.id.fl_container_2, StatisticsFragment())
+                                .commitAllowingStateLoss()
+                        }
+                        R.id.menu_nav_record -> {
+                            if(nowFragment is RecordListFragment) return@setOnItemSelectedListener true
+                            transaction
+//                            .setCustomAnimations(0, 0)
+                                .replace(R.id.fl_container_2, RecordListFragment())
+                                .commitAllowingStateLoss()
+                        }
                     }
-                }
 
-                true
+                    true
+                }
             }
         }
     }

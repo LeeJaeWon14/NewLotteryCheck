@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.jeepchief.newlotterycheck.R
 import com.jeepchief.newlotterycheck.databinding.SliderRecordBinding
 import com.jeepchief.newlotterycheck.util.Log
 
@@ -22,16 +23,24 @@ class RecordFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.e("onViewCreated()")
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
             flRecordSlider.setOnClickListener {
                 Log.e("slider click!!")
+
+                parentFragmentManager.beginTransaction()
+                    .setCustomAnimations(0, 0)
+                    .replace(R.id.fl_container, RecordMainFragment())
+                    .addToBackStack(null)
+                    .commitAllowingStateLoss()
             }
         }
     }
 
     override fun onDestroy() {
+        Log.e("onDestroy()")
         super.onDestroy()
         _binding = null
     }

@@ -13,6 +13,7 @@ import com.gun0912.tedpermission.normal.TedPermission
 import com.jeepchief.newlotterycheck.BaseActivity
 import com.jeepchief.newlotterycheck.R
 import com.jeepchief.newlotterycheck.databinding.ActivityMainBinding
+import com.jeepchief.newlotterycheck.util.Log
 import com.jeepchief.newlotterycheck.view.main.adapter.ViewPagerAdapter
 import com.jeepchief.newlotterycheck.viewmodel.LotteryViewModel
 
@@ -20,6 +21,7 @@ class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel = viewModels<LotteryViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.e("onCreate()")
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -28,6 +30,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initUi() {
+        Log.e("initUi()")
         binding.apply {
             setSupportActionBar(toolbar)
             supportActionBar?.apply {
@@ -50,6 +53,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun checkPermission() {
+        Log.e("checkPermission()")
         val permissionListener = object : PermissionListener {
             override fun onPermissionGranted() {
                 /* no-op */

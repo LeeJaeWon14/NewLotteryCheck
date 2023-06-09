@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
+
+    <FrameLayout
+        android:id="@+id/fl_container_2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"/>
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/fl_container_2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:textSize="50dp"-->
+<!--        android:text="TEST"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_weight="1"/>-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnv_record"
@@ -13,7 +31,6 @@
         android:layout_alignParentBottom="true"
         app:itemIconTint="@color/nav_selector_color"
         app:itemTextColor="@color/nav_selector_color"
-        app:itemBackground="?selectableItemBackground"
         app:menu="@menu/menu_record_nav"
         />
-</RelativeLayout>
+</LinearLayout>
