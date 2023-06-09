@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jeepchief.newlotterycheck.R
+import com.jeepchief.newlotterycheck.const.LottoConst
 import com.jeepchief.newlotterycheck.databinding.LayoutScanResultDialogBinding
 import com.jeepchief.newlotterycheck.databinding.SliderScanBinding
 import com.jeepchief.newlotterycheck.util.CrawlingManager
@@ -114,7 +115,8 @@ class ScanFragment : BaseFragment() {
                         adapter = LottNumberAdapter(
                             lottery.drwtNo1, lottery.drwtNo2, lottery.drwtNo3,
                             lottery.drwtNo4, lottery.drwtNo5, lottery.drwtNo6, lottery.bnusNo,
-                            refNumbers = viewModel.refDrwNumbers
+                            refNumbers = viewModel.refDrwNumbers,
+                            scanResult = null
                         )
 //                    addItemDecoration(
 //                        DividerItemDecoration(mContext, manager.orientation)
@@ -124,7 +126,17 @@ class ScanFragment : BaseFragment() {
                     rvUserLottNumbers.apply {
                         layoutManager = LinearLayoutManager(mContext)
                         userLottList?.let {
-                            adapter = UserLottNumAdapter(it, viewModel.refDrwNumbers)
+                            adapter = UserLottNumAdapter(it, viewModel.refDrwNumbers) { drwResult ->
+                                val result = when(drwResult) {
+                                    LottoConst.DRAW_RESULT_1ST -> "1등에 당첨되셨습니다."
+                                    LottoConst.DRAW_RESULT_2ND -> "2등에 당첨되셨습니다."
+                                    LottoConst.DRAW_RESULT_3RD -> "3등에 당첨되셨습니다."
+                                    LottoConst.DRAW_RESULT_4TH -> "4등에 당첨되셨습니다."
+                                    LottoConst.DRAW_RESULT_5TH -> "5등에 당첨되셨습니다."
+                                    else -> "아쉽게도 낙첨되셨습니다."
+                                }
+                                tvDrwResult.text = result
+                            }
                         } ?: run {
                             Toast.makeText(mContext, "Error!", Toast.LENGTH_SHORT).show()
                             return@launch

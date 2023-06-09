@@ -34,6 +34,25 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rv_ref_lott_numbers"
         android:layout_marginTop="12dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        android:layout_below="@id/rv_user_lott_numbers"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_drw_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        tools:text="1등 당첨입니다."
+        android:layout_below="@id/rv_user_lott_numbers"
+        android:layout_marginTop="15dp" />
+
     <Button
         android:id="@+id/btn_dialog_close"
         android:layout_width="match_parent"
@@ -42,7 +61,7 @@
         android:fontFamily="@font/binggrae"
         android:textStyle="bold"
         android:text="@string/label_close"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/rv_user_lott_numbers"/>
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/tv_drw_result"/>
 
 </RelativeLayout>

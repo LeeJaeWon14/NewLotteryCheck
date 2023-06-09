@@ -7,9 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jeepchief.newlotterycheck.databinding.UserLottNumberBinding
 import com.jeepchief.newlotterycheck.model.database.LotteryEntity
 
-class UserLottNumAdapter(private val userLottList: List<List<Int>>, private val refNumbers: List<Int>) : RecyclerView.Adapter<UserLottNumAdapter.UserLottNumViewHolder>() {
+class UserLottNumAdapter(
+    private val userLottList: List<List<Int>>,
+    private val refNumbers: List<Int>,
+    private val scanResult: (Int) -> Unit
+) : RecyclerView.Adapter<UserLottNumAdapter.UserLottNumViewHolder>() {
+    private val resultList = mutableListOf<Int>()
     class UserLottNumViewHolder(private val binding: UserLottNumberBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(numList: List<Int>, refNumbers: List<Int>) {
+        fun bind(numList: List<Int>, refNumbers: List<Int>, scanResult: (Int) -> Unit) {
             binding.rvUserLottList.apply {
                 layoutManager = LinearLayoutManager(this.context).apply {
                     orientation = LinearLayoutManager.HORIZONTAL
@@ -17,7 +22,7 @@ class UserLottNumAdapter(private val userLottList: List<List<Int>>, private val 
                 adapter = LottNumberAdapter(
                     *numList.toIntArray(),
                     refNumbers = refNumbers
-                )
+                ) { scanResult.invoke(it) }
             }
         }
     }
@@ -28,7 +33,11 @@ class UserLottNumAdapter(private val userLottList: List<List<Int>>, private val 
     }
 
     override fun onBindViewHolder(holder: UserLottNumViewHolder, position: Int) {
-        holder.bind(userLottList[position], refNumbers)
+        holder.bind(userLottList[position], refNumbers) { resultList.add(it) }
+        if(position == itemCount -1){
+            resultList.sortDescending()
+            scanResult.invoke(resultList.first())
+        }
     }
 
     override fun getItemCount(): Int = userLottList.size
