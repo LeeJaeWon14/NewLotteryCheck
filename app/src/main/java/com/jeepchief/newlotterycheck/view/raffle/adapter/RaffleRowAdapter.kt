@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class RaffleRowAdapter() : RecyclerView.Adapter<RaffleRowAdapter.RaffleRowViewHolder>() {
+class RaffleRowAdapter(private val numsList: List<Int>) : RecyclerView.Adapter<RaffleRowAdapter.RaffleRowViewHolder>() {
     class RaffleRowViewHolder(private val binding: LottoNumberBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(num: Int) = CoroutineScope(Dispatchers.Main).launch {
             binding.tvRefDrwNumber.text = num.toString()
@@ -25,11 +25,7 @@ class RaffleRowAdapter() : RecyclerView.Adapter<RaffleRowAdapter.RaffleRowViewHo
     }
 
     override fun onBindViewHolder(holder: RaffleRowViewHolder, position: Int) {
-        holder.bind(Random.nextInt(45))
-    }
-
-    fun change() {
-
+        holder.bind(numsList[position])
     }
 
     override fun getItemCount(): Int = 6

@@ -15,4 +15,6 @@
 
     <string name="label_close">닫기</string>
     <string name="label_drw_count">제 %s회차</string>
+    <string name="label_start_raffle">추첨 시작</string>
+    <string name="label_stop_raffle">추첨 종료</string>
 </resources>

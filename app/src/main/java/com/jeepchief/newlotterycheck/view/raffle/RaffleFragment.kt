@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeepchief.newlotterycheck.R
 import com.jeepchief.newlotterycheck.databinding.LayoutRaffleDialogBinding
 import com.jeepchief.newlotterycheck.databinding.SliderRaffleBinding
 import com.jeepchief.newlotterycheck.util.Log
@@ -47,7 +49,22 @@ class RaffleFragment : BaseFragment() {
                         layoutManager = LinearLayoutManager(mContext)
                         adapter = RaffleNumAdapter()
                     }
+                    btnStartRaffle.setOnClickListener {
+                        val btn = (it as Button)
+                        when(btn.text.toString()) {
+                            getString(R.string.label_start_raffle) -> {
+                                btn.text = getString(R.string.label_stop_raffle)
+                                (rvRaffle.adapter as RaffleNumAdapter).startRaffle()
+                            }
+                            getString(R.string.label_stop_raffle) -> {
+                                btn.text = getString(R.string.label_start_raffle)
+                                (rvRaffle.adapter as RaffleNumAdapter).stopRaffle()
+                            }
+                        }
+                    }
+                    btnDialogClose.setOnClickListener { dlg.dismiss() }
                 }
+                dlg.show()
             }
         }
     }
