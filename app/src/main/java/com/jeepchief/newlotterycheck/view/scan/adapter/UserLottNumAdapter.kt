@@ -1,11 +1,15 @@
 package com.jeepchief.newlotterycheck.view.scan.adapter
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jeepchief.newlotterycheck.databinding.UserLottNumberBinding
 import com.jeepchief.newlotterycheck.model.database.LotteryEntity
+import com.jeepchief.newlotterycheck.util.Log
+import kotlinx.coroutines.delay
 
 class UserLottNumAdapter(
     private val userLottList: List<List<Int>>,
@@ -35,8 +39,11 @@ class UserLottNumAdapter(
     override fun onBindViewHolder(holder: UserLottNumViewHolder, position: Int) {
         holder.bind(userLottList[position], refNumbers) { resultList.add(it) }
         if(position == itemCount -1){
-            resultList.sortDescending()
-            scanResult.invoke(resultList.first())
+            Handler(Looper.getMainLooper()).postDelayed({
+                resultList.sortDescending()
+                Log.e("resultList is $resultList")
+                scanResult.invoke(resultList.first())
+            }, 500)
         }
     }
 

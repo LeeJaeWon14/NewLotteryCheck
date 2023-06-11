@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.jeepchief.newlotterycheck.databinding.LayoutRaffleDialogBinding
 import com.jeepchief.newlotterycheck.databinding.SliderRaffleBinding
 import com.jeepchief.newlotterycheck.util.Log
 import com.jeepchief.newlotterycheck.view.BaseFragment
-import com.jeepchief.newlotterycheck.view.main.MainActivity
+import com.jeepchief.newlotterycheck.view.raffle.adapter.RaffleNumAdapter
+import kotlin.random.Random
 
 class RaffleFragment : BaseFragment() {
     private var _binding: SliderRaffleBinding? = null
@@ -30,9 +33,31 @@ class RaffleFragment : BaseFragment() {
             flRaffleSlider.setOnClickListener {
                 Log.e("slider click!!")
 
-                (mContext as MainActivity).hideActionBar()
+//                (mContext as MainActivity).hideActionBar()
+
+                // todo: 추첨결과 캡쳐 후 공유기능 추가
+                val dlgBinding = LayoutRaffleDialogBinding.inflate(layoutInflater)
+                val dlg = AlertDialog.Builder(mContext).create().apply {
+                    setCancelable(false)
+                    setView(dlgBinding.root)
+                }
+
+                dlgBinding.apply {
+                    rvRaffle.apply {
+                        layoutManager = LinearLayoutManager(mContext)
+                        adapter = RaffleNumAdapter()
+                    }
+                }
             }
         }
+    }
+
+    private fun createRaffleNums() : List<Int> {
+        val list = mutableListOf<Int>()
+        for(i in 0 until 6) {
+            list.add(Random.nextInt(45))
+        }
+        return list
     }
 
     override fun onDestroy() {

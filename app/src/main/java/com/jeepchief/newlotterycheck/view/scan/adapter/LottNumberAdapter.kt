@@ -8,6 +8,7 @@ import com.jeepchief.newlotterycheck.R
 import com.jeepchief.newlotterycheck.const.LottoConst
 import com.jeepchief.newlotterycheck.databinding.LottoNumberBinding
 import com.jeepchief.newlotterycheck.util.ColorChecker
+import com.jeepchief.newlotterycheck.util.Log
 
 class LottNumberAdapter(
     vararg drwNumbers: Int,
@@ -27,7 +28,7 @@ class LottNumberAdapter(
                     refNumbers.forEach { refNum ->
                         if(refNum == num.toInt()) {
                             drawResult.invoke(1)
-                            setTextColor(ColorChecker.convertColor(num.toInt()))
+//                            setTextColor(ColorChecker.convertColor(num.toInt()))
                             setBackgroundResource(ColorChecker.convertBackground(num.toInt()))
                         }
                     }
@@ -47,7 +48,7 @@ class LottNumberAdapter(
 //        Log.e("number >> ${drwNumList[position]}")
         holder.bind(drwNumList[position], position == 6, refNumbers) { drwCount += it }
         if(position == itemCount -1)
-            scanResult?.invoke(getDrwResult(drwCount))
+            scanResult?.invoke(getDrwResult(drwCount).also { Log.e("drwResult is $it, drwCount is $drwCount") })
     }
 
     private fun getDrwResult(drwCount: Int) : Int = when(drwCount) {

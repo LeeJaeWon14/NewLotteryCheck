@@ -14,6 +14,7 @@ import com.jeepchief.newlotterycheck.databinding.LayoutScanResultDialogBinding
 import com.jeepchief.newlotterycheck.databinding.SliderScanBinding
 import com.jeepchief.newlotterycheck.util.CrawlingManager
 import com.jeepchief.newlotterycheck.util.Log
+import com.jeepchief.newlotterycheck.util.ProgressDialog
 import com.jeepchief.newlotterycheck.view.BaseFragment
 import com.jeepchief.newlotterycheck.view.scan.adapter.LottNumberAdapter
 import com.jeepchief.newlotterycheck.view.scan.adapter.UserLottNumAdapter
@@ -58,6 +59,7 @@ class ScanFragment : BaseFragment() {
     private val barcodeLauncher = registerForActivityResult(ScanContract()) {
         it.contents?.let { content ->
             Log.e("QR content is $content")
+            ProgressDialog.show(mContext)
 //            processingData(content)
 
             // 로또 QR만 허용
@@ -89,6 +91,7 @@ class ScanFragment : BaseFragment() {
         viewModel.lottoNumbers.observe(requireActivity()) { lottery ->
             Log.e("lottery response >> $lottery")
             CoroutineScope(Dispatchers.Main).launch {
+                ProgressDialog.dismiss()
                 var userLottList: List<List<Int>>? = null
                 withContext(Dispatchers.IO) {
                     userLottList = CrawlingManager.scanNumbers(scanUrlParam)
@@ -127,6 +130,7 @@ class ScanFragment : BaseFragment() {
                         layoutManager = LinearLayoutManager(mContext)
                         userLottList?.let {
                             adapter = UserLottNumAdapter(it, viewModel.refDrwNumbers) { drwResult ->
+                                Log.e("Finally draw result $drwResult")
                                 val result = when(drwResult) {
                                     LottoConst.DRAW_RESULT_1ST -> "1등에 당첨되셨습니다."
                                     LottoConst.DRAW_RESULT_2ND -> "2등에 당첨되셨습니다."
