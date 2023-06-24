@@ -51,7 +51,7 @@ class MainActivity : BaseActivity() {
                     Spannable.SPAN_INCLUSIVE_INCLUSIVE
                 )
 
-                val subTitleString = SpannableString("다음 추첨까지 ${getNextRaffleDay()}")
+                val subTitleString = SpannableString("다음 추첨일 : ${getNextRaffleDay()}")
                 subTitleString.setSpan(
                     ForegroundColorSpan(Color.BLACK),
                     0,
